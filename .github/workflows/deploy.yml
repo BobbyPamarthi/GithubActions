@@ -11,8 +11,8 @@ jobs:
 
     steps:
 
-    - name: Checkout
-      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Setup SSH
       run: |
@@ -20,7 +20,7 @@ jobs:
         echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
 
-    - name: Copy files to server
+    - name: Deploy to nginx folder
       run: |
         rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
         ./ \
