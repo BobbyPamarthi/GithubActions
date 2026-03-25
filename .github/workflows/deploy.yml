@@ -11,17 +11,17 @@ jobs:
 
     steps:
 
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-    - name: Deploy to nginx folder
-      run: |
-        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
-        ./ \
-        ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/html/Verna
+      - name: Deploy to nginx folder
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+          ./ \
+          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/html/Verna
